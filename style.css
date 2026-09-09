@@ -1,4 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+/* ============================================
+   Tokens
+   ============================================ */
+:root {
+    --canvas: #f6f1e6;
+    --card: #eee4d0;
+    --hairline: #d9c9a6;
+    --hairline-soft: #e6dabb;
+
+    --ink: #221d15;
+    --ink-body: #3a3327;
+    --muted: #7a6f5c;
+    --muted-soft: #9c917c;
+
+    --accent: #2f4d6b;
+    --accent-active: #223a52;
+    --on-accent: #f6f1e6;
+
+    --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+    --font-ui: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
 * {
     box-sizing: border-box;
@@ -13,168 +33,161 @@ body {
     justify-content: center;
     align-items: center;
 
-    font-family: 'Quicksand', 'Segoe UI', sans-serif;
+    font-family: var(--font-ui);
 
-    background:
-        radial-gradient(circle at 20% 15%, rgba(255, 183, 197, 0.18), transparent 45%),
-        radial-gradient(circle at 80% 85%, rgba(120, 220, 200, 0.15), transparent 50%),
-        radial-gradient(circle at top, #2b2255 0%, #150f2e 55%, #0a0716 100%);
+    background: var(--canvas);
+    color: var(--ink);
 
-    background-attachment: fixed;
-
-    color: #f3f0fa;
-
-    overflow: hidden;
-    position: relative;
-}
-
-/* soft drifting nebula glow behind everything */
-body::before {
-    content: "";
-    position: fixed;
-    inset: -20%;
-    background:
-        radial-gradient(circle, rgba(255, 200, 150, 0.10) 0%, transparent 40%) 15% 20% / 60% 60% no-repeat,
-        radial-gradient(circle, rgba(150, 180, 255, 0.10) 0%, transparent 40%) 80% 70% / 55% 55% no-repeat;
-    animation: drift 22s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-}
-
-@keyframes drift {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(3%, -3%) scale(1.08); }
+    padding: 32px 20px;
 }
 
 .container {
-    width: min(90%, 650px);
+    width: min(100%, 600px);
 
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+
+    padding: 56px 48px 48px;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
     text-align: center;
 
-    padding: 50px 30px;
+    padding-bottom: 28px;
+    margin-bottom: 28px;
 
-    position: relative;
-    z-index: 1;
-}
-
-.stars {
-    font-size: 30px;
-    margin-bottom: 20px;
-
-    letter-spacing: 6px;
-
-    filter: drop-shadow(0 0 8px rgba(255, 220, 180, 0.6));
-
-    animation: twinkle 3s ease-in-out infinite;
-}
-
-@keyframes twinkle {
-    0%, 100% { opacity: 0.85; }
-    50%      { opacity: 1; }
+    border-bottom: 1px solid var(--hairline);
 }
 
 h1 {
-    font-size: 52px;
-    font-weight: 700;
-    margin-bottom: 10px;
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
 
-    background: linear-gradient(120deg, #ffd9c2 0%, #ffb7c5 35%, #b8b3ff 70%, #8de8d3 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-
-    letter-spacing: 0.5px;
+    margin-bottom: 8px;
 }
 
 .subtitle {
-    color: #c9c3e6;
-    margin-bottom: 35px;
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.stars {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted-soft);
+    margin-bottom: 28px;
+}
+
+/* ---------- Entry ---------- */
+
+.entry {
+    text-align: center;
 }
 
 .fact-box {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--card);
 
-    border: 1px solid rgba(255, 216, 200, 0.18);
+    border-left: 3px solid var(--accent);
+    border-radius: 2px;
 
-    border-radius: 24px;
+    padding: 32px 32px;
 
-    padding: 35px;
-
-    min-height: 150px;
+    min-height: 140px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    margin-bottom: 25px;
+    text-align: left;
 
-    backdrop-filter: blur(6px);
-
-    box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-        0 8px 30px rgba(90, 60, 150, 0.25),
-        0 0 40px rgba(150, 220, 200, 0.06);
-
-    transition: box-shadow 0.4s ease, transform 0.4s ease;
-}
-
-.fact-box:hover {
-    box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-        0 8px 34px rgba(90, 60, 150, 0.3),
-        0 0 55px rgba(150, 220, 200, 0.12);
+    margin-bottom: 32px;
 }
 
 #fact {
-    font-size: 20px;
-    line-height: 1.7;
-    color: #f6f2ff;
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--ink-body);
 }
 
 button {
     border: none;
 
-    padding: 15px 28px;
+    padding: 13px 26px;
 
-    border-radius: 14px;
+    border-radius: 6px;
 
-    font-size: 16px;
-    font-weight: 700;
-    font-family: inherit;
-    letter-spacing: 0.3px;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
 
     cursor: pointer;
 
-    background: linear-gradient(135deg, #ffcbb0, #ffb2c6 45%, #b6a9ff 100%);
-    color: #241a3d;
+    background: var(--accent);
+    color: var(--on-accent);
 
-    box-shadow: 0 6px 20px rgba(255, 170, 180, 0.25);
-
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.15s ease;
 }
 
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(255, 170, 180, 0.35);
+    background: var(--accent-active);
 }
 
 button:active {
-    transform: translateY(0px);
+    background: var(--accent-active);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
 
 button:disabled {
-    opacity: 0.55;
+    opacity: 0.5;
     cursor: wait;
-    box-shadow: none;
 }
 
 #status {
-    margin-top: 20px;
-    color: #9d97c2;
-    font-size: 14px;
-    letter-spacing: 0.3px;
+    margin-top: 18px;
+    min-height: 18px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 560px) {
+    .container {
+        padding: 40px 28px 36px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    #fact {
+        font-size: 19px;
+    }
+
+    .fact-box {
+        padding: 26px 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    button {
+        transition: none;
+    }
 }

@@ -6,6 +6,10 @@
 
     <title>Cosmic Facts</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,25 +17,28 @@
 
     <main class="container">
 
-        <div class="stars">✦ ✧ ✦</div>
+        <header class="masthead">
+            <h1>Cosmic Facts</h1>
+            <p class="subtitle">A running record of the observable universe</p>
+        </header>
 
-        <h1>Cosmic Facts</h1>
+        <div class="stars" aria-hidden="true">✦</div>
 
-        <p class="subtitle">
-            One random fact from the universe.
-        </p>
+        <section class="entry">
 
-        <div class="fact-box">
-            <p id="fact">
-                Click the button to discover something about space.
-            </p>
-        </div>
+            <div class="fact-box">
+                <p id="fact">
+                    Select the button to reveal an entry.
+                </p>
+            </div>
 
-        <button id="generateButton">
-            🌌 Give me a space fact
-        </button>
+            <button id="generateButton">
+                Draw another fact
+            </button>
 
-        <p id="status"></p>
+            <p id="status"></p>
+
+        </section>
 
     </main>
 
