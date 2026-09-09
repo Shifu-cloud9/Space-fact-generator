@@ -1,19 +1,37 @@
 export default async function handler() {
     try {
         const response = await fetch(
-            "https://api.openai.com/v1/responses",
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
             {
                 method: "POST",
 
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+                    "x-goog-api-key": process.env.GEMINI_API_KEY
                 },
 
                 body: JSON.stringify({
-                    model: "gpt-5-mini",
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: `
+Give me ONE surprising, scientifically accurate space fact.
 
-                    input: "Give me ONE surprising, scientifically accurate space fact. Keep it under 40 words. Explain it so a teenager can understand it. Return only the fact, with no introduction or quotation marks."
+Rules:
+- Under 40 words.
+- Easy for a teenager to understand.
+- It must be genuinely interesting.
+- Do not make up information.
+- Return ONLY the fact.
+- No introduction.
+- No quotation marks.
+- No bullet points.
+`
+                                }
+                            ]
+                        }
+                    ]
                 })
             }
         );
@@ -21,11 +39,11 @@ export default async function handler() {
         if (!response.ok) {
             const errorText = await response.text();
 
-            console.error(errorText);
+            console.error("Gemini API error:", errorText);
 
             return new Response(
                 JSON.stringify({
-                    error: "OpenAI request failed."
+                    error: "Gemini request failed."
                 }),
                 {
                     status: 500,
@@ -38,9 +56,16 @@ export default async function handler() {
 
         const data = await response.json();
 
+        const fact =
+            data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+        if (!fact) {
+            throw new Error("Gemini returned no fact.");
+        }
+
         return new Response(
             JSON.stringify({
-                fact: data.output_text
+                fact: fact
             }),
             {
                 status: 200,
@@ -51,11 +76,11 @@ export default async function handler() {
         );
 
     } catch (error) {
-        console.error(error);
+        console.error("Server error:", error);
 
         return new Response(
             JSON.stringify({
-                error: "Server error."
+                error: "Could not generate a space fact."
             }),
             {
                 status: 500,
